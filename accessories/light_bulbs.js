@@ -46,7 +46,8 @@ function WinkLightAccessory(platform, device) {
 			that.updateWinkProperty(callback, "powered", value);
 		});
 
-	if (that.device.desired_state.brightness !== undefined)
+	//Check if there is a node for brightness, if so add the characteristic
+	if (that.device.last_reading.brightness !== undefined)
 		this
 			.getService(Service.Lightbulb)
 			.getCharacteristic(Characteristic.Brightness)
@@ -59,7 +60,7 @@ function WinkLightAccessory(platform, device) {
 				that.updateWinkProperty(callback, "brightness", that.brightness);
 			});
 
-	if (that.device.desired_state.hue !== undefined)
+	if (that.device.last_reading.hue !== undefined)
 		this
 			.getService(Service.Lightbulb)
 			.getCharacteristic(Characteristic.Hue)
@@ -73,7 +74,7 @@ function WinkLightAccessory(platform, device) {
 											[that.hue, that.saturation, that.brightness, 'hsb']);				
 			});
 
-	if (that.device.desired_state.saturation !== undefined)
+	if (that.device.last_reading.saturation !== undefined)
 		this
 			.getService(Service.Lightbulb)
 			.getCharacteristic(Characteristic.Saturation)
